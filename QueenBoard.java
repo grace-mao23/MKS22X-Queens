@@ -80,6 +80,13 @@ public class QueenBoard {
 
   */
   public boolean solve(){
+    for (int i = 0; i < board.length; i++) {
+      for (int x = 0; x < board.length; x++) {
+        if (board[i][x] != 0) {
+          throw new IllegalStateException("Board is not empty");
+        }
+      }
+    }
     return solveH(0,0);
   }
 
