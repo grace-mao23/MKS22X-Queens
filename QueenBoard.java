@@ -5,7 +5,7 @@ public class QueenBoard {
     board = new int[size][size];
   }
 
-  private boolean addQueen(int r, int c) {
+  public boolean addQueen(int r, int c) {
     if (board[r][c] != 0) {
       return false;
     }
@@ -20,7 +20,7 @@ public class QueenBoard {
     return true;
   }
 
-  private boolean removeQueen(int r, int c) {
+  public boolean removeQueen(int r, int c) {
     if (board[r][c] != -1) {
       return false;
     }
@@ -42,16 +42,25 @@ public class QueenBoard {
   *all others are displayed as underscores '_'
   *There are spaces between each symbol:
   *"""_ _ Q _
-  *Q _ _ _
-
-  *_ _ _ Q
-
-  *_ Q _ _"""
+  *   Q _ _ _
+  *   _ _ _ Q
+  *   _ Q _ _"""
   *(pythonic string notation for clarity,
   *excludes the character up to the *)
   */
   public String toString(){
-    return "";
+    String result = "";
+    for (int i = 0; i < board.length; i++) {
+      for (int x = 0; x < board.length; x++) {
+        if (board[i][x] == -1) {
+          result += "Q ";
+        } else {
+          result += "_ ";
+        }
+      }
+      result += "\n";
+    }
+    return result;
   }
 
 
@@ -74,6 +83,12 @@ public class QueenBoard {
   */
   public int countSolutions(){
     return -1;
+  }
+
+  public static void main(String[] args) {
+    QueenBoard q = new QueenBoard(3);
+    System.out.println(q.toString());
+    
   }
 
 
