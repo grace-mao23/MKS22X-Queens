@@ -116,21 +116,30 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return countH(0);
+    return countH(0,0,0);
   }
 
-  private int countH(int c) {
-    if (c == board.length) {
-      return 0;
+  private int countH(int col, int row, int count) {
+    if (row == board.length && col == 0) {
+      return count;
     }
-    int count = 0;
-    for (int i = 0; i < board.length; i++) {
-      System.out.println(toString());
-      if (solveH(c,i)) {
-        count++;
+    if (row == board.length) {
+      int r = 0;
+      while (board[r][col - 1] != -1) {
+        r++;
       }
+      removeQueen(r, col-1); // locate and remove queen in column before
+      return countH(col - 1, r+1,count); // backtrack
     }
-    return count + countH(c+1);
+    if (col == board.length) {
+      reset();
+      return countH(0,row+1,count+1);
+    }
+    if (board[row][col] == 0) {
+      addQueen(row,col);
+      return countH(col+1,0,count);
+    }
+    return countH(col,row+1,count);
   }
 
   public static void main(String[] args) {
