@@ -108,7 +108,20 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
-    return -1;
+    return countH(0);
+  }
+
+  private int countH(int c) {
+    if (c == board.length) {
+      return 0;
+    }
+    int count = 0;
+    for (int i = 0; i < board.length; i++) {
+      if (solveH(c,i)) {
+        count++;
+      }
+    }
+    return count + countH(c+1);
   }
 
   public static void main(String[] args) {
