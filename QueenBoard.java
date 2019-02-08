@@ -35,6 +35,14 @@ public class QueenBoard {
     return true;
   }
 
+  private void reset() {
+    for (int i = 0; i < board.length; i++) {
+      for (int x = 0; x < board.length; x++) {
+        board[i][x] = 0;
+      }
+    }
+  }
+
 
   /**
   *@return The output string formatted as follows:
@@ -117,6 +125,7 @@ public class QueenBoard {
     }
     int count = 0;
     for (int i = 0; i < board.length; i++) {
+      System.out.println(toString());
       if (solveH(c,i)) {
         count++;
       }
@@ -125,10 +134,10 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(8);
+    QueenBoard q = new QueenBoard(4);
     System.out.println(q.toString());
     System.out.println(q.solve());
-    System.out.println(q.toString());
+    System.out.println(q.countSolutions());
     /*
     System.out.println(q.toString());
     q.addQueen(0,0);
