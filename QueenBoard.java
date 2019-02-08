@@ -55,7 +55,7 @@ public class QueenBoard {
         if (board[i][x] == -1) {
           result += "Q ";
         } else {
-          result += "_ ";
+          result += board[i][x] + " ";
         }
       }
       result += "\n";
@@ -88,7 +88,14 @@ public class QueenBoard {
   public static void main(String[] args) {
     QueenBoard q = new QueenBoard(3);
     System.out.println(q.toString());
-    
+    q.addQueen(0,0);
+    System.out.println(q.toString());
+    q.addQueen(1,1);
+    System.out.println(q.toString());
+    q.addQueen(2,1);
+    System.out.println(q.toString());
+    q.removeQueen(0,0);
+    System.out.println(q.toString());
   }
 
 
