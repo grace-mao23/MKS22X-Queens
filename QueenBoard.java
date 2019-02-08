@@ -76,10 +76,11 @@ public class QueenBoard {
   }
 
   private boolean solveH(int col, int row) {
+  //  System.out.println(row + ", " + col);
     if (col < 0) { // if we've backtracked all the way, it's unsolveable
       return false;
     }
-    if (col > board.length) { // if we've gone all the way, it's solved
+    if (col == board.length) { // if we've gone all the way, it's solved
       return true;
     }
     if (row == board.length) { // if we've gone all the way down
@@ -97,6 +98,7 @@ public class QueenBoard {
       return solveH(col,row+1); // move to next spot in column
     }
     // else...
+    //System.out.println("Made it");
     addQueen(row, col); // add queen at this position
     return solveH(col + 1, 0); // move to top of next column
   }
@@ -110,8 +112,10 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(2);
+    QueenBoard q = new QueenBoard(8);
+    System.out.println(q.toString());
     System.out.println(q.solve());
+    System.out.println(q.toString());
     /*
     System.out.println(q.toString());
     q.addQueen(0,0);
