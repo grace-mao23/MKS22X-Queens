@@ -72,27 +72,33 @@ public class QueenBoard {
 
   */
   public boolean solve(){
-    return solveH(0);
+    return solveH(0,0);
   }
 
-  private boolean solveH(int col) {
-    if (col < 0) {
+  private boolean solveH(int col, int row) {
+    if (col < 0) { // if we've backtracked all the way, it's unsolveable
       return false;
     }
-    int row = 0;
-    while (board[row][col] != 0 && row < board.length) {
-      row++;
+    if (col > board.length) { // if we've gone all the way, it's solved
+      return true;
     }
-    if (row == board.length) {
+    if (row == board.length) { // if we've gone all the way down
+      if (col == 0) { // if we're at the first column, it's unsolveable
+        return false;
+      }
       int r = 0;
       while (board[r][col - 1] != -1) {
         r++;
       }
-      removeQueen(r, col-1);
-      return solveH(col - 1);
+      removeQueen(r, col-1); // locate and remove queen in column before
+      return solveH(col - 1, r+1); // backtrack
     }
-    addQueen(row, col);
-    return solveH(col + 1);
+    if (board[row][col] != 0) { // if the position we're looking at is not 0
+      return solveH(col,row+1); // move to next spot in column
+    }
+    // else...
+    addQueen(row, col); // add queen at this position
+    return solveH(col + 1, 0); // move to top of next column
   }
 
   /**
