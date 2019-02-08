@@ -5,7 +5,7 @@ public class QueenBoard {
     board = new int[size][size];
   }
 
-  public boolean addQueen(int r, int c) {
+  private boolean addQueen(int r, int c) {
     if (board[r][c] != 0) {
       return false;
     }
@@ -20,7 +20,7 @@ public class QueenBoard {
     return true;
   }
 
-  public boolean removeQueen(int r, int c) {
+  private boolean removeQueen(int r, int c) {
     if (board[r][c] != -1) {
       return false;
     }
@@ -55,7 +55,7 @@ public class QueenBoard {
         if (board[i][x] == -1) {
           result += "Q ";
         } else {
-          result += board[i][x] + " ";
+          result += "_ "; // board[i][x] + " " if want to see numbers
         }
       }
       result += "\n";
@@ -67,14 +67,32 @@ public class QueenBoard {
 
   /**
   *@return false when the board is not solveable and leaves the board filled with zeros;
-
   *        true when the board is solveable, and leaves the board in a solved state
-
   *@throws IllegalStateException when the board starts with any non-zero value
 
   */
   public boolean solve(){
-    return true;
+    return solveH(0);
+  }
+
+  private boolean solveH(int col) {
+    if (col < 0) {
+      return false;
+    }
+    int row = 0;
+    while (board[row][col] != 0 && row < board.length) {
+      row++;
+    }
+    if (row == board.length) {
+      int r = 0;
+      while (board[r][col - 1] != -1) {
+        r++;
+      }
+      removeQueen(r, col-1);
+      return solveH(col - 1);
+    }
+    addQueen(row, col);
+    return solveH(col + 1);
   }
 
   /**
@@ -86,7 +104,9 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(3);
+    QueenBoard q = new QueenBoard(2);
+    System.out.println(q.solve());
+    /*
     System.out.println(q.toString());
     q.addQueen(0,0);
     System.out.println(q.toString());
@@ -95,7 +115,7 @@ public class QueenBoard {
     q.addQueen(2,1);
     System.out.println(q.toString());
     q.removeQueen(0,0);
-    System.out.println(q.toString());
+    System.out.println(q.toString()); */
   }
 
 
