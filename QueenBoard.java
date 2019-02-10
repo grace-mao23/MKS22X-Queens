@@ -120,38 +120,29 @@ public class QueenBoard {
         }
       }
     }
-    return countH(0,0,0);
+    return countH(0);
   }
 
-  private int countH(int col, int row, int count) {
-    if (row == board.length && col == 0) {
-      return count;
-    }
-    if (row == board.length) {
-      int r = 0;
-      while (board[r][col - 1] != -1) {
-        r++;
-      }
-      removeQueen(r, col-1); // locate and remove queen in column before
-      return countH(col - 1, r+1,count); // backtrack
-    }
+  private int countH(int col) {
     if (col == board.length) {
-      reset();
-      return countH(0,row+1,count+1);
+      return 1;
     }
-    if (board[row][col] == 0) {
-      addQueen(row,col);
-      return countH(col+1,0,count);
+    int result = 0;
+    for (int i = 0; i < board.length; i++) {
+      if (addQueen(i,col)) {
+        result += countH(col+1);
+      }
+      removeQueen(i,col); // reset for next loop
     }
-    return countH(col,row+1,count);
+    return result;
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(2);
+    QueenBoard q = new QueenBoard(8);
   //  System.out.println(q.toString());
-    System.out.println(q.solve());
-    System.out.println(q.toString());
-  //  System.out.println(q.countSolutions());
+    //System.out.println(q.solve());
+  //  System.out.println(q.toString());
+    System.out.println(q.countSolutions());
     /*
     System.out.println(q.toString());
     q.addQueen(0,0);
