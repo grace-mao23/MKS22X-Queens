@@ -95,17 +95,14 @@ public class QueenBoard {
       return true; // puzzle solved with queen in last row
     }
     for (int i = 0; i < board.length; i++) {
-    //  System.out.println("A"+col+ ", " + i + ": \n"+toString());
-      if (addQueen(i,col) && solveH(col+1)) {
-      //  System.out.println("B"+col+ ", " + i + ": \n"+toString());
+      if (addQueen(i,col) && solveH(col+1)) { // if queen addable and this position plays out
         return true;
       }
-    //  if (!addQueen(i,col)) System.out.println("No");
+      // if addQueen was false, no queen is here and removeQueen returns false, not doing anything to the barod
+      // if solveH was false (meaning addQueen true), queen removed
       removeQueen(i,col);
-    //  System.out.println("C"+col+ ", " + i + ": \n"+toString());
     }
-    //System.out.println("D"+col + ": \n"+toString());
-    return false;
+    return false; // no positions in the column yielded a solution
   }
 
   /**
@@ -125,12 +122,12 @@ public class QueenBoard {
 
   private int countH(int col) {
     if (col == board.length) {
-      return 1;
+      return 1; // you've reached end, this is a solution
     }
     int result = 0;
     for (int i = 0; i < board.length; i++) {
-      if (addQueen(i,col)) {
-        result += countH(col+1);
+      if (addQueen(i,col)) { // if you can add a queen...
+        result += countH(col+1); // check if this place yields solutions
       }
       removeQueen(i,col); // reset for next loop
     }
@@ -138,21 +135,26 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(8);
-  //  System.out.println(q.toString());
-    //System.out.println(q.solve());
-  //  System.out.println(q.toString());
-    System.out.println(q.countSolutions());
-    /*
-    System.out.println(q.toString());
-    q.addQueen(0,0);
-    System.out.println(q.toString());
-    q.addQueen(1,1);
-    System.out.println(q.toString());
-    q.addQueen(2,1);
-    System.out.println(q.toString());
-    q.removeQueen(0,0);
-    System.out.println(q.toString()); */
+    QueenBoard one = new QueenBoard(1);
+    QueenBoard two = new QueenBoard(2);
+    QueenBoard three = new QueenBoard(3);
+    QueenBoard four = new QueenBoard(4);
+    QueenBoard five = new QueenBoard(5);
+    QueenBoard six = new QueenBoard(6);
+    QueenBoard seven = new QueenBoard(7);
+    QueenBoard eight = new QueenBoard(8);
+    QueenBoard nine = new QueenBoard(9);
+    QueenBoard ten = new QueenBoard(10);
+    QueenBoard[] q = new QueenBoard[] {
+      one, two, three, four, five, six, seven, eight, nine, ten
+    };
+    for (QueenBoard e : q) {
+      System.out.println("Board: \n" + e.toString());
+      System.out.println("Solveable? " + e.solve());
+      e.reset();
+      System.out.println("Solutions: " + e.countSolutions());
+      System.out.println("--------------------------");
+    }
   }
 
 
