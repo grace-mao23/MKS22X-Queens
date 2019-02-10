@@ -90,32 +90,13 @@ public class QueenBoard {
     return solveH(0,0);
   }
 
-  private boolean solveH(int col, int row) {
-  //  System.out.println(row + ", " + col);
-    if (col < 0) { // if we've backtracked all the way, it's unsolveable
-      return false;
+  private boolean solveH(int row) {
+    if (row == board.length) {
+      return true; // queen is in the last columm (solveable)
     }
-    if (col == board.length) { // if we've gone all the way, it's solved
-      return true;
+    for (int i = 0; i < board.length; i++) {
+      if (board[row][i] == 0 && solveH(row+1))
     }
-    if (row == board.length) { // if we've gone all the way down
-      if (col == 0) { // if we're at the first column, it's unsolveable
-        return false;
-      }
-      int r = 0;
-      while (board[r][col - 1] != -1) {
-        r++;
-      }
-      removeQueen(r, col-1); // locate and remove queen in column before
-      return solveH(col - 1, r+1); // backtrack
-    }
-    if (board[row][col] != 0) { // if the position we're looking at is not 0
-      return solveH(col,row+1); // move to next spot in column
-    }
-    // else...
-    //System.out.println("Made it");
-    addQueen(row, col); // add queen at this position
-    return solveH(col + 1, 0); // move to top of next column
   }
 
   /**
@@ -150,10 +131,11 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(4);
+    QueenBoard q = new QueenBoard(10);
     System.out.println(q.toString());
     System.out.println(q.solve());
-    System.out.println(q.countSolutions());
+    System.out.println(q.toString());
+  //  System.out.println(q.countSolutions());
     /*
     System.out.println(q.toString());
     q.addQueen(0,0);
