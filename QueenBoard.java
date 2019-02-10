@@ -113,6 +113,13 @@ public class QueenBoard {
   *@throws IllegalStateException when the board starts with any non-zero value
   */
   public int countSolutions(){
+    for (int i = 0; i < board.length; i++) {
+      for (int x = 0; x < board.length; x++) {
+        if (board[i][x] != 0) {
+          throw new IllegalStateException("Board is not empty");
+        }
+      }
+    }
     return countH(0,0,0);
   }
 
@@ -140,8 +147,8 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(8);
-    System.out.println(q.toString());
+    QueenBoard q = new QueenBoard(2);
+  //  System.out.println(q.toString());
     System.out.println(q.solve());
     System.out.println(q.toString());
   //  System.out.println(q.countSolutions());
