@@ -11,8 +11,8 @@ public class QueenBoard {
     }
     board[r][c] = -1;
     for (int i = 0; i < board.length; i++) {
-      for (int x = c + 1; x < board.length; x++) {
-        if (i == r || Math.abs(r-i) == Math.abs(c-x)) {
+      for (int x = c; x < board.length; x++) {
+        if ((i == r || Math.abs(r-i) == Math.abs(c-x) || x == c) && board[i][x] != -1) {
           board[i][x] += 1;
         }
       }
@@ -26,8 +26,8 @@ public class QueenBoard {
     }
     board[r][c] = 0;
     for (int i = 0; i < board.length; i++) {
-      for (int x = c + 1; x < board.length; x++) {
-        if (i == r || Math.abs(r-i) == Math.abs(c-x)) {
+      for (int x = c; x < board.length; x++) {
+        if ((i == r || Math.abs(r-i) == Math.abs(c-x) || x == c) && !(i == r && x == c)) {
           board[i][x] -= 1;
         }
       }
@@ -87,16 +87,25 @@ public class QueenBoard {
         }
       }
     }
-    return solveH(0,0);
+    return solveH(0);
   }
 
-  private boolean solveH(int row) {
-    if (row == board.length) {
-      return true; // queen is in the last columm (solveable)
+  private boolean solveH(int col) {
+    if (col == board.length) {
+      return true; // puzzle solved with queen in last row
     }
     for (int i = 0; i < board.length; i++) {
-      if (board[row][i] == 0 && solveH(row+1))
+    //  System.out.println("A"+col+ ", " + i + ": \n"+toString());
+      if (addQueen(i,col) && solveH(col+1)) {
+      //  System.out.println("B"+col+ ", " + i + ": \n"+toString());
+        return true;
+      }
+    //  if (!addQueen(i,col)) System.out.println("No");
+      removeQueen(i,col);
+    //  System.out.println("C"+col+ ", " + i + ": \n"+toString());
     }
+    //System.out.println("D"+col + ": \n"+toString());
+    return false;
   }
 
   /**
@@ -131,7 +140,7 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
-    QueenBoard q = new QueenBoard(10);
+    QueenBoard q = new QueenBoard(8);
     System.out.println(q.toString());
     System.out.println(q.solve());
     System.out.println(q.toString());
