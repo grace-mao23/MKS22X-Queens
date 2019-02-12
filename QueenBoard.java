@@ -135,6 +135,7 @@ public class QueenBoard {
   }
 
   public static void main(String[] args) {
+    QueenBoard none = new QueenBoard(0);
     QueenBoard one = new QueenBoard(1);
     QueenBoard two = new QueenBoard(2);
     QueenBoard three = new QueenBoard(3);
@@ -146,7 +147,7 @@ public class QueenBoard {
     QueenBoard nine = new QueenBoard(9);
     QueenBoard ten = new QueenBoard(10);
     QueenBoard[] q = new QueenBoard[] {
-      one, two, three, four, five, six, seven, eight, nine, ten
+      none, one, two, three, four, five, six, seven, eight, nine, ten
     };
     for (QueenBoard e : q) {
       System.out.println("Board: \n" + e.toString());
