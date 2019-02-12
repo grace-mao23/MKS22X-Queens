@@ -154,6 +154,10 @@ public class QueenBoard {
       System.out.println("Solveable? " + e.solve());
       e.reset();
       System.out.println("Solutions: " + e.countSolutions());
+      if (e.solve()) {
+        System.out.println("Example: \n" + e.toString());
+      }
+      e.reset();
       System.out.println("--------------------------");
     }
   }
